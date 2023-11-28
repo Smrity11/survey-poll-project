@@ -1,14 +1,15 @@
-import { FaAd, FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
+import { FaAd, FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
 import { NavLink, Outlet,  } from "react-router-dom";
-import useCart from "../hooks/useCart";
+// import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
+import { Helmet } from "react-helmet";
 
 
 
 
 const Dashboard = () => {
    
-    const [cart] = useCart();
+    // const [cart] = useCart();
 
     // TODO: get isAdmin value from the database
     const [isAdmin] = useAdmin();
@@ -21,13 +22,19 @@ const Dashboard = () => {
     
 
     return (
-        <div className="md:flex   max-h-screen"  
+
+        <>
+            <Helmet>
+                 <title>OpinioNex | Dashboard</title>
+             </Helmet>
+             <div className="md:flex   max-h-screen"  
        >
             {/* dashboard side bar */}
             <div className="lg:w-64 md:w-52  bg-black border-2 shadow-fuchsia-700  border-r-fuchsia-900 ">
                 <ul className="menu p-4 text-white " >
                     {
                         isAdmin ? <>
+                        <h1 className="text-xl font-bold text-white mt-5 mb-10">ADMIN DASHBOARD</h1>
                             <li>
                                 <NavLink to="/dashboard/adminHome">
                                     <FaHome></FaHome>
@@ -57,6 +64,7 @@ const Dashboard = () => {
                   :
                    
                             <>
+                            <h1 className="text-xl font-bold text-white mt-5 mb-10">SURVEYOR DASHBOARD</h1>
                                 <li>
                                     <NavLink to="/dashboard/userHome">
                                         <FaHome></FaHome>
@@ -68,19 +76,20 @@ const Dashboard = () => {
                                          Create Survey</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/cart">
+                                    <NavLink to="/dashboard/mySurvey">
                                         <FaShoppingCart></FaShoppingCart>
-                                        My Cart ({cart.length})</NavLink>
+                                        My Survey</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/review">
+                                    <NavLink to="/dashboard/userResponse">
                                         <FaAd></FaAd>
-                                        Add a Review</NavLink>
+                                        User Response</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/paymentHistory">
+                                    <NavLink to="/dashboard/adminFeedback">
                                         <FaList></FaList>
-                                        Real Payment History</NavLink>
+                                        Admin Feedback
+                                        </NavLink>
                                 </li>
                             </>
                     }
@@ -90,11 +99,6 @@ const Dashboard = () => {
                         <NavLink to="/">
                             <FaHome></FaHome>
                             Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/order/salad">
-                            <FaSearch></FaSearch>
-                            Menu</NavLink>
                     </li>
                     <li>
                         <NavLink to="/order/contact">
@@ -108,6 +112,8 @@ const Dashboard = () => {
                 <Outlet></Outlet>
             </div>
         </div>
+        </>
+       
     );
 };
 

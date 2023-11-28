@@ -1,52 +1,52 @@
+
 import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../components/sectionTitle/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router-dom";
 
-const CreateSurvey = () => {
+const UpdateSurvey = () => {
+const SurveyDataLoad = useLoaderData()
+const {_id ,title,category,description,deadline} = SurveyDataLoad
+
     const { user } = useAuth()
     const [selectedCategory, setSelectedCategory] = useState('');
     const axiosSecure= useAxiosSecure()
     const { register, handleSubmit, reset } = useForm();
   
-    const [voteYes] =useState(0)
-    const [voteNo] =useState(0)
-    const [like] =useState(0)
-    const [dislike] =useState(0)
+   
   
-    const onSubmit = async (data) => {
-      const surveyData = {
-        email: data.email,
-        name: user.name,
+    const handleUpdateSurvey = async (data) => {
+      const surveyUpdateData = {
         category: data.category,
         title: data.title,
         deadline: data.deadline,
         description: data.description ,
-        voteYes,voteNo,like,dislike,
-        status:'unpublish'
-
+      
       };
     
       try {
-        const menuRes = await axiosSecure.post('/survey', surveyData);
+        const updateSurvey = await axiosSecure.patch(`/allSurvey/${_id}`, surveyUpdateData);
     
-        if (menuRes.data.insertedId) {
-          // show success popup
-          reset();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `${data.title} is added to the survey.`,
-            showConfirmButton: false,
-            timer: 1500
-          });
-        }
-      } catch (error) {
-        console.error('Error posting survey:', error);
-        // Handle error as needed
+       
+    if (updateSurvey.data.modifiedCount > 0) {
+        console.log('Survey updated successfully'); // Add this line
+        // show success popup
+        reset();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${data.title} is updated to the survey.`,
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
+    } catch (error) {
+      console.error('Error posting survey:', error);
+      // Handle error as needed
+    }
     };
 
 
@@ -61,7 +61,7 @@ const CreateSurvey = () => {
         backgroundSize:"100% "}}>
        <div className=" lg:px-40 bg-black bg-opacity-[0.8] z-10 absolute w-full h-screen">
        <SectionTitle heading="Create Survey"></SectionTitle>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleUpdateSurvey)}>
           <div className="flex gap-7 mb-6 ">
             <div className="form-control md:w-1/2 ">
               <label className="label">
@@ -87,7 +87,8 @@ const CreateSurvey = () => {
           {...register('category', { required: true })}
           className="border rounded px-4 py-2 w-full"
           onChange={handleCategoryChange}
-          value={selectedCategory}
+          readOnly
+          defaultValue={category}
           required
         >
           <option className="text-gray-700" value="" disabled>Select a category</option>
@@ -110,6 +111,7 @@ const CreateSurvey = () => {
                 <input
                   {...register('title', { required: true })}
                   type="text"
+                  defaultValue={title}
                   placeholder="enter title"
                   className="input input-bordered w-full inputbox"
                 />
@@ -125,6 +127,7 @@ const CreateSurvey = () => {
                 <input
                  {...register('deadline', { required: true })}
                   type="date"
+                  defaultValue={deadline}
                   placeholder="enter date"
                   className="input input-bordered w-full inputbox"
                 />
@@ -138,7 +141,7 @@ const CreateSurvey = () => {
             <label className="input-group">
               <input
               {...register('description', { required: true })}
-              
+              defaultValue={description}
                 type="text"
                 placeholder="description"
                 className="input input-bordered w-full inputbox"
@@ -151,7 +154,7 @@ const CreateSurvey = () => {
           
           <input
             type="submit"
-            value="Add Survey"
+            value="Update Survey"
             className="btn btn-wide md:w-[500px] font-extrabold mx-auto grid justify-center"
           ></input>
         </form>
@@ -160,4 +163,4 @@ const CreateSurvey = () => {
     );
 };
 
-export default CreateSurvey;
+export default UpdateSurvey;

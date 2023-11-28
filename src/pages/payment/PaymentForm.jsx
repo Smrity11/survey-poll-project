@@ -88,7 +88,7 @@ const PaymentForm = () => {
                     date: new Date(), // utc date convert. use moment js to 
                     cartIds: cart.map(item => item._id),
                     menuItemIds: cart.map(item => item.menuId),
-                    status: 'pending'
+                    role: 'pro user'
                 }
 
                 const res = await axiosSecure.post('/payments', payment);
@@ -102,7 +102,7 @@ const PaymentForm = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    navigate('/dashboard/paymentHistory')
+                    navigate('/')
                 }
 
             }
@@ -111,31 +111,34 @@ const PaymentForm = () => {
     }
 
     return (
-       <div>
-         <form onSubmit={handleSubmit}>
-            <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
-                            },
-                        },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    },
-                }}
-            />
-            <button className="btn btn-sm btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
-                Pay
-            </button>
-            <p className="text-red-600">{error}</p>
-            {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
-        </form>
-       </div>
+      <div className="w-[700px] mx-auto ">
+         <div className="py-[50px] px-[50px] mx-[50px] my-[50px] rounded shadow-seconndary border border-secondary  mx-auto bg-white">
+
+<form onSubmit={handleSubmit}>
+   <CardElement
+       options={{
+           style: {
+               base: {
+                   fontSize: '16px',
+                   color: '#424770',
+                   '::placeholder': {
+                       color: '#aab7c4',
+                   },
+               },
+               invalid: {
+                   color: '#9e2146',
+               },
+           },
+       }}
+   />
+   <button className="px-10 py-2 text-white font-bold bg-secondary w-[300px] mt-12 mx-auto flex justify-center" type="submit" disabled={!stripe || !clientSecret}>
+       Pay
+   </button>
+   <p className="text-red-600">{error}</p>
+   {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
+</form>
+</div>
+      </div>
     );
 };
 

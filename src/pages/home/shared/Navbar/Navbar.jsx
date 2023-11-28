@@ -5,11 +5,19 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../../provider/AuthProvider";
+import useAdmin from "../../../../hooks/useAdmin";
+import useSurveyor from "../../../../hooks/useSurveyor";
+// import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+// import { useQuery } from "@tanstack/react-query";
 
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+const [isAdmin] = useAdmin()
+const [isSurveyor] = useSurveyor()
+console.log(isSurveyor);
+
+
   const handleLogOut = () => {
     logOut();
   };
@@ -33,25 +41,12 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      <li className="text-lg">
-        <NavLink
-          to="/createsurvey"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? "underline active"
-              : ""
-          }
-        >
-          {" "}
-          CREATE SURVEY
-        </NavLink>
-      </li>
 
+    {
+      isAdmin &&
       <li className="text-lg">
         <NavLink
-          to="/dashboard"
+          to="/dashboard/manageUsers"
           className={({ isActive, isPending }) =>
             isPending
               ? "pending"
@@ -61,14 +56,35 @@ const Navbar = () => {
           }
         >
           {" "}
-         DASHBOARD
+        ADMIN DASHBOARD
         </NavLink>
-      </li>
+      </li> 
+
+    }
+    {
+      isSurveyor &&
+      <li className="text-lg">
+        <NavLink
+          to="/dashboard/createsurvey"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "underline active"
+              : ""
+          }
+        >
+          {" "}
+        SURVEYOR DASHBOARD
+        </NavLink>
+      </li> 
+
+    }
      
      
       <li className="text-lg">
         <NavLink
-          to="/prouser"
+          to="/proUser"
           className={({ isActive, isPending }) =>
             isPending
               ? "pending"
@@ -84,7 +100,7 @@ const Navbar = () => {
 
       <li className="text-lg">
         <NavLink
-          to="/aboutus"
+          to="/aboutUs"
           className={({ isActive, isPending }) =>
             isPending
               ? "pending"

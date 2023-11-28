@@ -4,7 +4,6 @@ import {
 import Main from "../layout/Main";
 import Login from "../pages/Login/Login";
 import Register from "../pages/register/Register";
-import Survey from "../pages/survey/Survey";
 import Home from "../pages/home/home/home/Home";
 import Dashboard from "../layout/DashBoard";
 import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
@@ -12,6 +11,14 @@ import CreateSurvey from "../pages/Dashboard/createSurvey/CreateSurvey";
 import Status from "../pages/Dashboard/status/Status";
 import SurveyDetails from "../pages/home/home/survey/SurveyDetails";
 import PayMent from "../pages/payment/PayMent";
+import PaymentUser from "../pages/Dashboard/PaymentUser/PaymentUser";
+import UpdateSurvey from "../pages/Dashboard/UpdateSurvey/UpdateSurvey";
+import MySurvey from "../pages/Dashboard/Mysurvey/MySurvey";
+import AboutUs from "../pages/aboutUs/AboutUs";
+import AdminFeedBack from "../pages/AdminFeedBack/AdminFeedBack";
+import SurveyResponse from "../pages/SurveyResponse/SurveyResponse";
+import UserResponse from "../pages/Dashboard/UserResponse/UserResponse";
+// import PaymentUser from "../pages/Dashboard/PaymentUser/PaymentUser";
 
 export const router = createBrowserRouter([
     {
@@ -22,18 +29,19 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
        },
-       {
-        path: "/survey",
-        element: <Survey></Survey>,
-       },
+      
        {
         path: "/survey/:id",
         element: <SurveyDetails></SurveyDetails>,
         loader: ({params}) => fetch(`http://localhost:5000/allSurvey/${params.id}`)
        },
        {
-        path: "/payment",
+        path: "/proUser",
         element: <PayMent></PayMent>,
+       },
+       {
+        path: "/aboutUs",
+        element: <AboutUs></AboutUs>,
        },
     ]
 }
@@ -55,13 +63,41 @@ export const router = createBrowserRouter([
           element:<ManageUsers></ManageUsers>
         },
         {
+          path:"paymentsUsers",
+          element:<PaymentUser></PaymentUser>,
+          loader:() => fetch('http://localhost:5000/payments')
+        },
+        {
+          path:"adminFeedback",
+          element:<AdminFeedBack></AdminFeedBack>,
+          loader:() => fetch('http://localhost:5000/allSurvey')
+        },
+        {
           path:"createsurvey",
           element:<CreateSurvey></CreateSurvey>
         },
         {
+          path:"surveyResponse",
+          element:<SurveyResponse></SurveyResponse>
+        },
+        {
+          path:"userResponse",
+          element:<UserResponse></UserResponse>
+        },
+        {
+          path:"mySurvey",
+          element:<MySurvey></MySurvey>
+        },
+        {
+          path:"updateSurvey/:id",
+          element:<UpdateSurvey></UpdateSurvey>,
+          loader: ({params}) => fetch(`http://localhost:5000/allSurvey/${params.id}`)
+
+        },
+        {
           path:"status",
           element:<Status></Status>,
-      loader:() => fetch('http://localhost:5000/survey'),
+          loader:() => fetch('http://localhost:5000/survey'),
 
         },
       ]

@@ -8,9 +8,9 @@ const useSurveyor = () => {
     const { data: isSurveyor, isPending: isSurveyorLoading } = useQuery({
         queryKey: [user?.email, 'isSurveyor'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/users/Surveyor/${user.email}`);
+            const res = await axiosSecure.get(`/users/surveyor/${user.email}`);
             // console.log(res.data);
-            return res.data?.Surveyor;
+            return res.data?.surveyor;
         }
     })
     return [isSurveyor, isSurveyorLoading]
