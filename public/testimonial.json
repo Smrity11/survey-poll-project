@@ -1,0 +1,51 @@
+[
+    {
+      "clientName": "John Doe",
+      "clientSay": "I love using this survey platform! It's user-friendly and has fantastic features.",
+      "ratings": 5,
+      "clientImage": "john_doe.jpg",
+      "clientReview": "The platform made creating and analyzing surveys a breeze. Highly recommended!"
+    },
+    {
+      "clientName": "Jane Smith",
+      "clientSay": "The survey tools provided are top-notch. They helped us gather valuable insights for our research.",
+      "ratings": 4,
+      "clientImage": "jane_smith.jpg",
+      "clientReview": "Excellent customer support and a variety of customization options. Great experience overall."
+    },
+    {
+      "clientName": "Samuel Williams",
+      "clientSay": "Using this survey website significantly improved our data collection process. Impressive features!",
+      "ratings": 5,
+      "clientImage": "samuel_williams.jpg",
+      "clientReview": "The intuitive interface and detailed analytics helped us make informed decisions for our projects."
+    },
+    {
+      "clientName": "Emily Johnson",
+      "clientSay": "I appreciate the simplicity and effectiveness of the survey creation process. Thumbs up!",
+      "ratings": 4,
+      "clientImage": "emily_johnson.jpg",
+      "clientReview": "The platform has saved us time and effort, allowing us to focus more on the results."
+    },
+    {
+      "clientName": "Michael Davis",
+      "clientSay": "The survey platform's flexibility allowed us to tailor surveys to our specific needs. Great job!",
+      "ratings": 5,
+      "clientImage": "michael_davis.jpg",
+      "clientReview": "We've seen an increase in participant engagement since switching to this platform. Highly satisfied!"
+    },
+    {
+      "clientName": "Sophia Brown",
+      "clientSay": "The survey analytics provided valuable insights that influenced our decision-making process.",
+      "ratings": 4,
+      "clientImage": "sophia_brown.jpg",
+      "clientReview": "The reports and visualizations helped us understand our audience better. A reliable tool!"
+    },
+    {
+      "clientName": "Daniel White",
+      "clientSay": "I've had a positive experience using this survey website. It's a must-have for any research project.",
+      "ratings": 5,
+      "clientImage": "daniel_white.jpg",
+      "clientReview": "The platform is user-friendly, and the support team is responsive. Overall, a fantastic service!"
+    }
+  ]

@@ -5,23 +5,23 @@ import SectionTitle from "../../../../components/sectionTitle/SectionTitle";
 
 const Survey = () => {
   const axiosPublic = useAxiosPublic();
-  const { data: surveyData = [] } = useQuery({
+  const { data: surveysortingData = [] } = useQuery({
     queryKey: ["Alldata"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/allSurvey");
+      const res = await axiosPublic.get("/sortedByVote");
       return res.data;
     },
   });
 
   // Display only the first six surveys
-  const filterPublished = surveyData.filter(survData => survData.status === "published");
+  const filterPublished = surveysortingData.filter(survData => survData.status === "published");
   const visibleSurveys = filterPublished.slice(0, 6);
 
   return (
     <div className="bg-[#1C1C1E] px-8 md:px-24 lg:px-32 py-40">
 
 <div className="mb-24">
-<SectionTitle  heading="most voted survey"></SectionTitle>
+<SectionTitle  heading="Most Positive Voted survey"></SectionTitle>
 
 </div>      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-12">
         {visibleSurveys.map((survey) => (
@@ -34,9 +34,9 @@ const Survey = () => {
                 <p className="text-lg">{survey?.title}</p>
                 <div className="border-t-2 space-y-3">
                   <p>
-                    Maximum Price :{" "}
+                    Yes Vote :{" "}
                     <span className="text-white font-extrabold">
-                      {survey?.vote}
+                      {survey?.yesVote}
                     </span>
                   </p>
                   <p className="mb-6">

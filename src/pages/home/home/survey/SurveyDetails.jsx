@@ -9,11 +9,13 @@ import useAuth from "../../../../hooks/useAuth";
 const SurveyDetails = () => {
   const {user} =useAuth()
   const DetailsData = useLoaderData();
-  const {_id ,title,category,description,deadline,name,email} =DetailsData
+  const {title,category,description,deadline,_id} =DetailsData
   const axiosSecure =useAxiosSecure()
   const [like, setLike] = useState(DetailsData.like);
   const [dislike, setDislike] = useState(DetailsData.dislike);
-  const [selectedOption, setSelectedOption] = useState('yes');
+  const [selectedOptionYes, setSelectedOptionYes] = useState(DetailsData.yesVote);
+  const [selectedOptionNo, setSelectedOptionNo] = useState(DetailsData.NoVote);
+  console.log(selectedOptionNo);
  
   const { data: payments = [] } = useQuery({
     queryKey: ['payments', user.email],
@@ -29,9 +31,31 @@ const SurveyDetails = () => {
 
   
 
-  const handleOptionChange = (option) => {
-    setSelectedOption(option);
+ 
+
+  const handleYesVote= (_id , currentyesCount) =>{
+   
+   const updateyesCount = currentyesCount +1
+    
+    axiosSecure.patch(`/allSurvey/YesVote/${_id}`,  {yesVote:updateyesCount} )
+    .then(res => {
+        console.log(res);
+        setSelectedOptionYes(updateyesCount)
+
+    })
+    .catch(err => console.log(err));
+  }
+  const handleNoVote = (_id, currentNoCount) => {
+    const updateNoVoteCount = currentNoCount + 1;
+
+    axiosSecure.patch(`/allSurvey/NoVote/${_id}`, { NoVote: updateNoVoteCount })
+      .then(res => {
+        console.log(res);
+        setSelectedOptionNo(updateNoVoteCount);
+      })
+      .catch(err => console.log(err));
   };
+
 
   const handleLike= (_id , currentLikeCount) =>{
    
@@ -65,19 +89,15 @@ const SurveyDetails = () => {
     const form = e.target;
     const comment = form.comment.value
     const likeCommentData ={
-      comment,like,dislike,
-      vote:selectedOption,
-     surveyPostedId :_id,
-     surveyPostedName :name,
-     surveyPostedEmail : email,
-     category,deadline,
+      comment,
      responseUserName: user.name,
-     responseUserEmail: user.email
+     responseUserEmail: user.email,
+   
     }
     try {
-          const menuRes = await axiosSecure.post('/responseSurveyor', likeCommentData);
+          const commentUpdate = await axiosSecure.patch(`/allSurvey/UpdateVote/${_id}`, likeCommentData);
       
-          if (menuRes.data.insertedId) {
+          if (commentUpdate.data.modifiedCount) {
             // show success popup
             // reset();
             Swal.fire({
@@ -141,28 +161,17 @@ const SurveyDetails = () => {
                 <div className="card-body rounded-none">
       <h1>{DetailsData.question}</h1>
       <li>
-        <input
-          type="radio"
-          name="radio-2"
-          className="radio radio-primary"
-          checked={selectedOption === 'yes'}
-          onChange={() => handleOptionChange('yes')}
-        />
-        <span>Yes</span>
+      <button onClick={() => handleYesVote(DetailsData._id ,DetailsData.yesVote)} className="card-title btn"> Yes {selectedOptionYes}</button>
       </li>
       <li>
-        <input
-          type="radio"
-          name="radio-2"
-          className="radio radio-primary"
-          checked={selectedOption === 'no'}
-          onChange={() => handleOptionChange('no')}
-        />
-        <span>No</span>
+       
+      <button onClick={() => handleNoVote(DetailsData._id, DetailsData.NoVote)} className="card-title btn">
+      No {selectedOptionNo}
+    </button>
       </li>
       <div>
-        {selectedOption === 'yes' && <p>Yes selected</p>}
-        {selectedOption === 'no' && <p>No selected</p>}
+        {/* {selectedOption === 'yes' && <p>Yes selected</p>}
+        {selectedOption === 'no' && <p>No selected</p>} */}
       </div>
     </div>
                 </div>
