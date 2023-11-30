@@ -136,7 +136,7 @@ console.log(isSurveyor);
   return (
     <div>
 
-      <div className="navbar bg-black text-fuchsia-600 py-3 fixed z-10 bg-opacity-20 max-w-screen-xl  ">
+      <div className="navbar bg-black text-fuchsia-600 py-3 fixed z-10 bg-opacity-20   ">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">

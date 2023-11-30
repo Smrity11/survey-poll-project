@@ -17,8 +17,8 @@ const axiosPublic = useAxiosPublic();
 
   const [like, setLike] = useState(DetailsData.like);
   const [dislike, setDislike] = useState(DetailsData.dislike);
-  const [selectedOptionYes, setSelectedOptionYes] = useState(DetailsData.voteNo);
-  const [selectedOptionNo, setSelectedOptionNo] = useState(DetailsData.voteYes);
+  const [selectedOptionYes, setSelectedOptionYes] = useState(DetailsData.voteYes);
+  const [selectedOptionNo, setSelectedOptionNo] = useState(DetailsData.voteNo);
   console.log(selectedOptionNo);
  
   const {  data: payments = [] } = useQuery({
@@ -231,13 +231,16 @@ const {refetch, data: surveyComment = [] } = useQuery({
               <div className="card  bg-base-100 shadow-xl border-2 rounded-none">
               <form onSubmit={handleComment}>
   <div className="card-body">
-    <input type="text" name="comment" className="textarea textarea-primary" placeholder="Bio" />
     {filteredproUser.length > 0 ? (
-      <input
+      <>
+    <input  type="text" name="comment" className="textarea textarea-primary" placeholder="enter your comment" />
+    <input
         type="submit"
         value="Comment"
         className="btn btn-wide md:w-[150px] font-extrabold mx-auto grid justify-center"
       />
+      </>
+    
     ) : (
       <>
         <p className="text-xs text-black">
