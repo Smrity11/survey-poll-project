@@ -62,10 +62,11 @@ console.log(isSurveyor);
 
     }
     {
+     
       isSurveyor &&
       <li className="text-lg">
         <NavLink
-          to="/dashboard/createsurvey"
+          to="/dashboard/surveyorHome"
           className={({ isActive, isPending }) =>
             isPending
               ? "pending"
@@ -78,11 +79,28 @@ console.log(isSurveyor);
         SURVEYOR DASHBOARD
         </NavLink>
       </li> 
-
+          
     }
      
      
       <li className="text-lg">
+        <NavLink
+          to="/allSurvey"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "underline active"
+              : ""
+          }
+        >
+          {" "}
+         SURVEY
+        </NavLink>
+      </li>
+      {
+        isAdmin || isSurveyor ? " " :
+        <li className="text-lg">
         <NavLink
           to="/proUser"
           className={({ isActive, isPending }) =>
@@ -97,7 +115,7 @@ console.log(isSurveyor);
          GO TO PRO
         </NavLink>
       </li>
-
+}
       <li className="text-lg">
         <NavLink
           to="/aboutUs"

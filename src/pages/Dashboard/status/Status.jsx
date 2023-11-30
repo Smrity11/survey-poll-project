@@ -87,17 +87,13 @@ const Status = () => {
     }
 
     return (
-        <div className=" h-screen relative">
+        <div className=" bg-black" >
         <div
-          className="h-screen "
-          style={{
-            backgroundImage:
-              "url(https://media.istockphoto.com/id/1249955438/photo/check-mark-symbol-drawn-by-purple-neon-light-on-black-wall.jpg?s=612x612&w=0&k=20&c=Pk0TUB5q-25iidBP7CbmA4CXgCQz9i0MWiOQnNjJj5g=)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100% ",
-          }}
+          className=" "
+         
         >
-          <div className="bg-black bg-opacity-[0.8] z-10 absolute w-full h-screen text-white">
+        {/* bg-black bg-opacity-[0.8] z-10 */}
+          <div className="  w-full  text-white">
             <SectionTitle heading="Manage status"></SectionTitle>
   
             <div className="flex justify-evenly my-4">
@@ -112,8 +108,8 @@ const Status = () => {
                     <th></th>
                     <th>Category</th>
                     <th>Title</th>
-                    <th>Publish</th>
-                    <th>Unpublish</th>
+                    <th>Publish/Unpublish</th>
+                   
                   </tr>
                 </thead>
                 <tbody>
@@ -131,10 +127,10 @@ const Status = () => {
         ) : surveys.status === 'published'  ? (
           <span className="btn btn-ghost btn-xs">Published</span>
         ) : (
-          <>
-          <td className="btn btn-ghost btn-xs" onClick={() =>surveypublished(surveys)}>publish</td>
-          <td className="btn btn-ghost btn-xs" onClick={() =>surveyUnpublished(surveys)}>unpublish</td>
-          </>
+          <div className="flex gap-6 items-center">
+          <td className="text-bold  text-white w-[60px] bg-primary px-2 cursor-pointer" onClick={() =>surveypublished(surveys)}>publish</td>
+          <td className="text-bold text-white  w-[70px] bg-primary px-2 cursor-pointer" onClick={() =>surveyUnpublished(surveys)}>unpublish</td>
+          </div>
         )}
        </tr>
        )}
@@ -147,48 +143,11 @@ const Status = () => {
 
 
 
-//         <div className=" h-screen relative">
-//         <div
-//           className="h-screen "
-//           style={{
-//             backgroundImage:
-//               "url(https://media.istockphoto.com/id/1249955438/photo/check-mark-symbol-drawn-by-purple-neon-light-on-black-wall.jpg?s=612x612&w=0&k=20&c=Pk0TUB5q-25iidBP7CbmA4CXgCQz9i0MWiOQnNjJj5g=)",
-//             backgroundRepeat: "no-repeat",
-//             backgroundSize: "100% ",
-//           }}
-//         >
-//             <div className="overflow-x-auto">
-//   <table className="table table-zebra">
-//     {/* head */}
-//     <thead>
-//       <tr>
-//         <th></th>
-//         <th>Name</th>
-//         <th>Job</th>
-//         <th>Favorite Color</th>
-//       </tr>
-//     </thead>
-//     <tbody>
-//       {/* row 1 */}
-//       {
-//         allSurvey.map((surveys,index) =>
-//             <tr key={surveys._id}>
-//         <th>{index + 1}</th>
-//         <td>{surveys.category}</td>
-//         <td>{surveys.title}</td>
-//         <td>publish</td>
-//         <td>unpublish</td>
-//       </tr>
-//         )
-//       }
-      
-      
-//     </tbody>
-//   </table>
-// </div>
-//         </div>
-//         </div>
     );
 };
 
 export default Status;
+
+
+
+

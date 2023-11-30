@@ -21,15 +21,16 @@ const CreateSurvey = () => {
         email: data.email,
         name: user.name,
         category: data.category,
+        question: data.question,
         title: data.title,
         deadline: data.deadline,
         description: data.description ,
         voteYes,voteNo,like,dislike,
-        status:'unpublish'
-
+        status:'pending'
       };
     
       try {
+        
         const menuRes = await axiosSecure.post('/survey', surveyData);
     
         if (menuRes.data.insertedId) {
@@ -38,7 +39,7 @@ const CreateSurvey = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `${data.title} is added to the survey.`,
+            title: `${data.category} is added to the survey.`,
             showConfirmButton: false,
             timer: 1500
           });
@@ -55,11 +56,9 @@ const CreateSurvey = () => {
       setSelectedCategory(e.target.value);
     };
     return (
-     <div className=" h-screen relative" style={{
-        backgroundImage: 'url(https://media.istockphoto.com/id/1249955438/photo/check-mark-symbol-drawn-by-purple-neon-light-on-black-wall.jpg?s=612x612&w=0&k=20&c=Pk0TUB5q-25iidBP7CbmA4CXgCQz9i0MWiOQnNjJj5g=)',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize:"100% "}}>
-       <div className=" lg:px-40 bg-black bg-opacity-[0.8] z-10 absolute w-full h-screen">
+     <div className=" h-screen relative"
+       >
+       <div className=" lg:px-40 bg-black  w-full ">
        <SectionTitle heading="Create Survey"></SectionTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex gap-7 mb-6 ">
@@ -101,8 +100,8 @@ const CreateSurvey = () => {
       </div>
             </div>
           </div>
-          <div className="mb-6">
-            <div className="form-control w-full">
+          <div className="flex gap-7 mb-6 ">
+          <div className="form-control w-1/2">
               <label className="label">
                 <span className="label-text text-white text-xl">Tittle</span>
               </label>
@@ -115,9 +114,7 @@ const CreateSurvey = () => {
                 />
               </label>
             </div>
-            
-
-            <div className="form-control w-full">
+            <div className="form-control w-1/2">
               <label className="label">
                 <span className="label-text text-white text-xl">Expire Date</span>
               </label>
@@ -130,6 +127,26 @@ const CreateSurvey = () => {
                 />
               </label>
             </div>
+            
+          </div>
+          <div className="mb-6">
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text text-white text-xl">Question</span>
+              </label>
+              <label className="input-group">
+                <input
+                  {...register('question', { required: true })}
+                  type="text"
+                  placeholder="enter Question"
+                  className="input input-bordered w-full inputbox"
+                />
+              </label>
+            </div>
+            
+            
+
+            
 
             <div className="form-control w-full ">
             <label className="label">

@@ -18,12 +18,22 @@ import AboutUs from "../pages/aboutUs/AboutUs";
 import AdminFeedBack from "../pages/AdminFeedBack/AdminFeedBack";
 import SurveyResponse from "../pages/SurveyResponse/SurveyResponse";
 import UserResponse from "../pages/Dashboard/UserResponse/UserResponse";
+import Error from "../pages/error/Error";
+import AllSurveyCard from "../pages/AllSurveyCard/AllSurveyCard";
+import SurveyorHome from "../pages/Dashboard/SurveyorHome/SurveyorHome";
+import ProUserComment from "../pages/ProUserComment/ProUserComment";
+import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import PrivateRoute from "./PrivateRoute";
+import SurveyorRoute from "./SurveyorRoute";
+import AdminRoute from "./AdminRoute";
+// import Rechart from "../pages/Rechart/Rechart";
 // import PaymentUser from "../pages/Dashboard/PaymentUser/PaymentUser";
 
 export const router = createBrowserRouter([
     {
       path: "/",
       element: <Main></Main>,
+      errorElement:<Error></Error> ,
       children: [
        {
         path: "/",
@@ -32,12 +42,17 @@ export const router = createBrowserRouter([
       
        {
         path: "/survey/:id",
-        element: <SurveyDetails></SurveyDetails>,
-        loader: ({params}) => fetch(`http://localhost:5000/allSurvey/${params.id}`)
+        element: <PrivateRoute><SurveyDetails></SurveyDetails></PrivateRoute>,
+        loader: ({params}) => fetch(`https://servey-poll-server.vercel.app/allSurvey/${params.id}`)
        },
        {
         path: "/proUser",
-        element: <PayMent></PayMent>,
+        element: <PrivateRoute><PayMent></PayMent></PrivateRoute>,
+        loader:() => fetch('https://servey-poll-server.vercel.app/users')
+       },
+       {
+        path: "/allSurvey",
+        element: <AllSurveyCard></AllSurveyCard>,
        },
        {
         path: "/aboutUs",
@@ -59,45 +74,57 @@ export const router = createBrowserRouter([
       element:<Dashboard></Dashboard>,
       children:[
         {
+          path:"surveyorHome",
+          element:<SurveyorRoute><SurveyorHome></SurveyorHome></SurveyorRoute>
+        },
+        {
+          path:"adminHome",
+          element:<AdminRoute><AdminHome></AdminHome></AdminRoute>
+        },
+        {
           path:"manageUsers",
-          element:<ManageUsers></ManageUsers>
+          element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
         },
         {
           path:"paymentsUsers",
-          element:<PaymentUser></PaymentUser>,
-          loader:() => fetch('http://localhost:5000/payments')
+          element:<AdminRoute><PaymentUser></PaymentUser></AdminRoute>,
+          loader:() => fetch('https://servey-poll-server.vercel.app/payments')
         },
         {
           path:"adminFeedback",
-          element:<AdminFeedBack></AdminFeedBack>,
-          loader:() => fetch('http://localhost:5000/allSurvey')
+          element:<SurveyorRoute><AdminFeedBack></AdminFeedBack></SurveyorRoute>,
+          loader:() => fetch('https://servey-poll-server.vercel.app/allSurvey')
         },
         {
           path:"createsurvey",
-          element:<CreateSurvey></CreateSurvey>
+          element:<SurveyorRoute><CreateSurvey></CreateSurvey></SurveyorRoute>
         },
         {
           path:"surveyResponse",
-          element:<SurveyResponse></SurveyResponse>
+          element:<AdminRoute><SurveyResponse></SurveyResponse></AdminRoute>
+        },
+        {
+          path:"proUserComment",
+          element:<SurveyorRoute><ProUserComment></ProUserComment></SurveyorRoute>
         },
         {
           path:"userResponse",
-          element:<UserResponse></UserResponse>
+          element:<SurveyorRoute><UserResponse></UserResponse></SurveyorRoute>
         },
         {
           path:"mySurvey",
-          element:<MySurvey></MySurvey>
+          element:<SurveyorRoute><MySurvey></MySurvey></SurveyorRoute>
         },
         {
           path:"updateSurvey/:id",
-          element:<UpdateSurvey></UpdateSurvey>,
-          loader: ({params}) => fetch(`http://localhost:5000/allSurvey/${params.id}`)
+          element:<SurveyorRoute><UpdateSurvey></UpdateSurvey></SurveyorRoute>,
+          loader: ({params}) => fetch(`https://servey-poll-server.vercel.app/allSurvey/${params.id}`)
 
         },
         {
           path:"status",
-          element:<Status></Status>,
-          loader:() => fetch('http://localhost:5000/survey'),
+          element:<AdminRoute><Status></Status></AdminRoute>,
+          loader:() => fetch('https://servey-poll-server.vercel.app/survey'),
 
         },
       ]

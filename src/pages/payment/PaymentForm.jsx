@@ -3,24 +3,27 @@ import { useEffect, useState } from "react";
 
 
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import useCart from "../../hooks/useCart";
 
 
 const PaymentForm = () => {
+    const {user} =useAuth()
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
-    const { user } = useAuth();
     const [cart, refetch] = useCart();
     const navigate = useNavigate();
 
     const totalPrice = 500
+   
+ 
+    
 
     useEffect(() => {
         if (totalPrice > 0) {
@@ -88,7 +91,7 @@ const PaymentForm = () => {
                     date: new Date(), // utc date convert. use moment js to 
                     cartIds: cart.map(item => item._id),
                     menuItemIds: cart.map(item => item.menuId),
-                    role: 'pro user'
+                    role:'pro user'
                 }
 
                 const res = await axiosSecure.post('/payments', payment);
@@ -112,7 +115,7 @@ const PaymentForm = () => {
 
     return (
       <div className="w-[700px] mx-auto ">
-         <div className="py-[50px] px-[50px] mx-[50px] my-[50px] rounded shadow-seconndary border border-secondary  mx-auto bg-white">
+         <div className="py-[50px] px-[50px] mx-[50px] my-[50px] rounded shadow-seconndary border border-secondary  bg-white">
 
 <form onSubmit={handleSubmit}>
    <CardElement
@@ -131,9 +134,12 @@ const PaymentForm = () => {
            },
        }}
    />
-   <button className="px-10 py-2 text-white font-bold bg-secondary w-[300px] mt-12 mx-auto flex justify-center" type="submit" disabled={!stripe || !clientSecret}>
+   
+    <button className="px-10 py-2 text-white font-bold bg-secondary w-[300px] mt-12 mx-auto flex justify-center" type="submit" disabled={!stripe || !clientSecret}>
        Pay
    </button>
+ 
+  
    <p className="text-red-600">{error}</p>
    {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
 </form>

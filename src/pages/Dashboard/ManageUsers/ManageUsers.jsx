@@ -32,7 +32,8 @@ const ManageUsers = () => {
               });
         }
     })
-}
+ }
+
   const handleMakeSurveyor = user =>{
     axiosSecure.patch(`/users/surveyor/${user._id}`)
     .then(res =>{
@@ -67,7 +68,7 @@ const ManageUsers = () => {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your user has been deleted.",
               icon: "success",
             });
           }
@@ -77,24 +78,19 @@ const ManageUsers = () => {
   };
 
   return (
-    <div className=" max-h-screen ">
+    <div className="bg-[black] pb-20 h-full">
       <div
-        className="h-screen"
-        style={{
-          backgroundImage:
-            "url(https://media.istockphoto.com/id/1249955438/photo/check-mark-symbol-drawn-by-purple-neon-light-on-black-wall.jpg?s=612x612&w=0&k=20&c=Pk0TUB5q-25iidBP7CbmA4CXgCQz9i0MWiOQnNjJj5g=)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "100% ",
-          backgroundAttachment: "fixed",
-        }}
+        className="h-auto"
+      
       >
-        <div className="relative">
-          <div className="bg-black bg-opacity-[0.8] z-10 absolute w-full  h-auto text-white">
+        <div className="">
+        <div className=""></div>
+          <div className=" w-full bg-black   text-white">
           <SectionTitle heading="Manage Users"></SectionTitle>
 
           <div className="flex justify-evenly my-4">
-            <h2 className="text-3xl">All Users</h2>
             <h2 className="text-3xl">Total Users: {users.length}</h2>
+            
           </div>
           <div className="overflow-x-auto ">
             <table className="table  w-full">
@@ -126,7 +122,7 @@ const ManageUsers = () => {
             <button  className="btn btn-ghost btn-xs" onClick={() => handleMakeAdmin(user)}>
              Make Admin
             </button>
-            <button className="btn btn-error btn-xs "onClick={handleMakeSurveyor(user)} >   Make Surveyor</button>
+            <button className="btn btn-error btn-xs " onClick={() => handleMakeSurveyor(user)} >   Make Surveyor</button>
           </>
         )}
 

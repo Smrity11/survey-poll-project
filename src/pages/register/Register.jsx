@@ -30,7 +30,8 @@ import useAuth from "../../hooks/useAuth";
                          // create user entry in the database
                          const userInfo = {
                              name: data.name,
-                             email: data.email
+                             email: data.email,
+                             photoURL:data.photoURL
                          }
                          axiosPublic.post('/users', userInfo)
                              .then(res => {
@@ -102,7 +103,8 @@ import useAuth from "../../hooks/useAuth";
                   <span className="label-text text-white">Photo</span>
                 </label>
                 <input
-                  name="photo"
+                {...register("photoURL", { required: true })} 
+                  name="photoURL"
                   type="text"
                   placeholder="Enter Your Photo URL"
                   className="input input-bordered inputbox text-black"
