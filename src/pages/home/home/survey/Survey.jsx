@@ -55,7 +55,7 @@ const Survey = () => {
                 <div className="card-actions justify-end">
                   <Link to={`/survey/${survey._id}`}>
                     <button
-                      className="bg-[#1C1C1E] p-2 rounded font-semibold w-[150px] text-white"
+                      className="bg-[#1C1C1E] btnsurvey p-2 rounded font-semibold w-[150px] text-white"
                     >
                       Details
                     </button>

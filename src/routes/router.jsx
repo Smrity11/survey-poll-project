@@ -26,6 +26,7 @@ import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 import PrivateRoute from "./PrivateRoute";
 import SurveyorRoute from "./SurveyorRoute";
 import AdminRoute from "./AdminRoute";
+import Contact from "../pages/contact/Contact";
 // import Rechart from "../pages/Rechart/Rechart";
 // import PaymentUser from "../pages/Dashboard/PaymentUser/PaymentUser";
 
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
        {
         path: "/aboutUs",
         element: <AboutUs></AboutUs>,
+       },
+       {
+        path: "/contact",
+        element: <Contact></Contact>,
        },
     ]
 }

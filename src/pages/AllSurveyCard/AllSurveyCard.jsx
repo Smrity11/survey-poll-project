@@ -3,10 +3,22 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import { Link } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useEffect, useState } from "react";
 
 
 const AllSurveyCard = () => {
   const axiosPublic = useAxiosPublic();
+  const [loading ,setLoading] =useState(true)
+  let [color, setColor] = useState("#d500f9");
+
+  useEffect(()=>{
+    setLoading(true)
+    setTimeout(()=>{
+      setLoading(false)
+    },1500)
+  },[])
+
   const { data: surveysortingData = [] } = useQuery({
     queryKey: ["Alldata"],
     queryFn: async () => {
@@ -24,7 +36,17 @@ const AllSurveyCard = () => {
 <div className="mb-24">
 <SectionTitle  heading="All survey"></SectionTitle>
 
-</div>      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-12">
+</div> {
+    loading?
+    <ClipLoader
+        color={color}
+        loading={loading}
+       
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      /> : 
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-12">
         {surveyData.map((survey) => (
           <div key={survey._id}>
             <div
@@ -48,7 +70,7 @@ const AllSurveyCard = () => {
                 <div className="card-actions justify-end">
                   <Link to={`/survey/${survey._id}`}>
                     <button
-                      className="bg-[#1C1C1E] p-2 rounded font-semibold w-[150px] text-white"
+                      className="bg-[#1C1C1E]  btnsurvey p-2 rounded font-semibold w-[150px] text-white"
                     >
                       Details
                     </button>
@@ -59,6 +81,8 @@ const AllSurveyCard = () => {
           </div>
         ))}
       </div>
+}
+     
     </div>
   );
 };

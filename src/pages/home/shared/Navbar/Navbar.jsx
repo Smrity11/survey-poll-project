@@ -131,6 +131,21 @@ console.log(isSurveyor);
          ABOUT US
         </NavLink>
       </li>
+      <li className="text-lg">
+        <NavLink
+          to="/contact"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "underline active"
+              : ""
+          }
+        >
+          {" "}
+        CONTACT
+        </NavLink>
+      </li>
     </>
   );
   return (
